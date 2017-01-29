@@ -15,6 +15,11 @@ public class Calculatrice
 		trace = false;
 	}
 	
+	public Calculatrice(ArrayList<Double> al){
+		this();
+		this.p = al;
+	}
+	
 	public void entree(){
 		
 		this.interactif = true;
@@ -37,6 +42,27 @@ public class Calculatrice
 	
 	public void evaluer(String c){
 		
+		String calc = "";
+		
+		for(int i = 0 ; i < c.length() ; i++){
+			
+			if(c.charAt(i) != ' '){
+				calc += c.charAt(i);
+			}
+			
+			if(c.charAt(i) == ' ' || i+1 == c.length()){
+				
+				if(this.isDouble(calc+"")){
+					this.p.add( Double.parseDouble(calc));
+				}else {
+					action(calc);
+				}
+				
+			} 
+			
+		}
+		
+		System.out.print(this.p);
 	}
 	
 	public boolean isDouble(String s) {
@@ -52,84 +78,84 @@ public class Calculatrice
 		switch(action){
 		case "+":
 			if(this.p.size() > 1){
-				int res = (int)(this.p.get(0) + this.p.get(1));
+				double res = (this.p.get(0) + this.p.get(1));
 				this.p = new ArrayList<Double>();
 				this.p.add((double)res);
 			} else { System.out.println("Veuillez entrer au moins deux nombres.");}
 			break;
 		case "-":
 			if(this.p.size() > 1){
-				int res = (int)(this.p.get(0) - this.p.get(1));
+				double res = (this.p.get(0) - this.p.get(1));
 				this.p = new ArrayList<Double>();
 				this.p.add((double)res);
 			} else { System.out.println("Veuillez entrer au moins deux nombres.");}
 			break;
 		case "*":
 			if(this.p.size() > 1){
-				int res = (int)(this.p.get(0) * this.p.get(1));
+				double res = (int)(this.p.get(0) * this.p.get(1));
 				this.p = new ArrayList<Double>();
 				this.p.add((double)res);
 			} else { System.out.println("Veuillez entrer au moins deux nombres.");}
 			break;
 		case "/":
 			if(this.p.size() > 1){
-				int res = (int)(this.p.get(0) / this.p.get(1));
+				double res = (int)(this.p.get(0) / this.p.get(1));
 				this.p = new ArrayList<Double>();
 				this.p.add((double)res);
 			} else { System.out.println("Veuillez entrer au moins deux nombres.");}
 			break;
 		case "sqrt":
 			if(!this.p.isEmpty()){
-				int res = (int)(Math.sqrt(this.p.get(this.p.size() -1)));
+				double res = (Math.sqrt(this.p.get(this.p.size() -1)));
 				this.p.set(this.p.size() -1, (double)res);
 				this.p.add((double)res);
 			} else { System.out.println("Veuillez entrer au moins un nombre.");}
 			break;
 		case "carré":
 			if(!this.p.isEmpty()){
-				int res = (int)(this.p.get(0)*this.p.get(0));
+				double res = (this.p.get(0)*this.p.get(0));
 				this.p = new ArrayList<Double>();
 				this.p.add((double)res);
 			} else { System.out.println("Veuillez entrer au moins un nombre.");}
 			break;
 		case "sin":
 			if(!this.p.isEmpty()){
-				int res = (int)(Math.sin(this.p.get(0)));
+				double res = (Math.sin(this.p.get(0)));
 				this.p = new ArrayList<Double>();
 				this.p.add((double)res);
 			} else { System.out.println("Veuillez entrer au moins un nombre.");}
 			break;
 		case "cos":
 			if(!this.p.isEmpty()){
-				int res = (int)(Math.cos(this.p.get(0)));
+				double res = (Math.cos(this.p.get(0)));
 				this.p = new ArrayList<Double>();
 				this.p.add((double)(res));
 			} else { System.out.println("Veuillez entrer au moins un nombre.");}
 			break;
 		case "tan":
 			if(!this.p.isEmpty()){
-				int res = (int)(Math.tan(this.p.get(0)));
+				double res = (Math.tan(this.p.get(0)));
 				this.p = new ArrayList<Double>();
 				this.p.add((double)res);
 			} else { System.out.println("Veuillez entrer au moins un nombre.");}
 			break;
 		case "inv":
 			if(!this.p.isEmpty()){
-				int res = (int)(1/(this.p.get(0)));
+				double res = (1/(this.p.get(0)));
 				this.p = new ArrayList<Double>();
 				this.p.add((double)res);
 			} else { System.out.println("Veuillez entrer au moins un nombre.");}
 			break;
 		case "opp":
 			if(!this.p.isEmpty()){
-				int res = (int)(-1*(this.p.get(0)));
+				double res = (-1*(this.p.get(0)));
 				this.p = new ArrayList<Double>();
 				this.p.add((double)res);
 			} else { System.out.println("Veuillez entrer au moins un nombre.");}
 			break;	
 		case "puiss":
 			if(this.p.size() > 1){
-				int res = (int)(Math.pow(this.p.get(0),(this.p.get(1))));
+				double res = (Math.pow(this.p.get(0),(this.p.get(1))));
 				this.p = new ArrayList<Double>();
 				this.p.add((double)res);
 			} else { System.out.println("Veuillez entrer au moins un nombre.");}
@@ -154,7 +180,7 @@ public class Calculatrice
 	}
 	
 	public double sommet(){
-		return this.p.get(this.p.size());
+		return this.p.get(this.p.size()-1);
 	}
 	
 	public String toString(){
@@ -167,7 +193,10 @@ public class Calculatrice
 		Calculatrice c = new Calculatrice();
 		if(args.length == 0)
 	    {
-	       c.entree();
+			c.entree();
 	    }
+		else {
+			c.evaluer(args[0]);
+		}
     }
 }
