@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,17 +8,14 @@ public class Calculatrice
 	private Scanner s;
 	private boolean interactif,trace;
 	
+	// Constructeur d'une calcultrice sans paramètres	
 	public Calculatrice(){
 		p = new ArrayList<Double>();
 		interactif = false;
 		trace = false;
 	}
-	
-	public Calculatrice(ArrayList<Double> al){
-		this();
-		this.p = al;
-	}
-	
+
+	// Méthode d'ajout d'une opérande ou d'un opérateur
 	public void ajout(String a){
 		if(this.estNombre(a)){
 			this.p.add(Double.parseDouble(a));
@@ -29,19 +25,8 @@ public class Calculatrice
 		}
 	}
 	
-	public boolean estNombre(String str)  
-	{  
-	  try  
-	  {  
-	    double d = Double.parseDouble(str);  
-	  }  
-	  catch(NumberFormatException nfe)  
-	  {  
-	    return false;  
-	  }  
-	  return true;  
-	}
 	
+	// Mode interactif de la calculatrice
 	public void entree(){
 		
 		this.interactif = true;
@@ -51,7 +36,7 @@ public class Calculatrice
 		
 		while(interactif){
 			String str = s.next();
-			if(this.isDouble(str)){
+			if(this.estNombre(str)){
 				this.p.add( Double.parseDouble(str));
 			}else {
 				action(str);
@@ -62,6 +47,7 @@ public class Calculatrice
 		}
 	}
 	
+	// Méthode d'évaluation d'une string donnée en paramètre
 	public void evaluer(String c){
 		
 		String calc = "";
@@ -74,7 +60,7 @@ public class Calculatrice
 			
 			if(c.charAt(i) == ' ' || i+1 == c.length()){
 				
-				if(this.isDouble(calc+"")){
+				if(this.estNombre(calc+"")){
 					this.p.add( Double.parseDouble(calc));
 				}else {
 					action(calc);
@@ -87,7 +73,8 @@ public class Calculatrice
 		System.out.print(this.p);
 	}
 	
-	public boolean isDouble(String s) {
+	// Methode de test pour savoir si une string est un nombre
+	public boolean estNombre(String s) {
         try {
             Double.parseDouble(s);
             return true;
@@ -96,6 +83,7 @@ public class Calculatrice
         }
     }
 	
+	// Ensemble des actions possibles dans la calculatrice
 	public void action(String action){
 		switch(action){
 		case "+":
@@ -210,6 +198,7 @@ public class Calculatrice
 		
 	}
 	
+	// Fonction Gamma d'Euler en java
 	public static double gamma(double x) {
 	      double tmp = (x - 0.5) * Math.log(x + 4.5) - (x + 4.5);
 	      double ser = 1.0 + 76.18009173    / (x + 0)   - 86.50532033    / (x + 1)
@@ -218,10 +207,12 @@ public class Calculatrice
 	      return Math.exp(tmp + Math.log(ser * Math.sqrt(2 * Math.PI)));
 	   }
 	
+	// Methode pour connaitre le sommet de la pile
 	public double sommet(){
 		return this.p.get(this.p.size()-1);
 	}
 	
+	// Méthode d'affichage de la pile
 	public String toString(){
 		return this.toString();
 	}

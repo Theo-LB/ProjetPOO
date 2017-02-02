@@ -1,5 +1,3 @@
-
-
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -13,7 +11,10 @@ public class CalculatriceTests {
 	private ArrayList<Double> aL,aL2;
 	private Calculatrice c,c2;
 	
+	//
 	// Initialisation
+	//
+	
 	@Before
 	public void setUp() throws Exception {
 		
