@@ -13,7 +13,7 @@ public class Calculatrice
 		p = new ArrayList<Double>();
 		interactif = false;
 		trace = false;
-	}
+	} 
 
 	// Méthode d'ajout d'une opérande ou d'un opérateur
 	public void ajout(String a){
